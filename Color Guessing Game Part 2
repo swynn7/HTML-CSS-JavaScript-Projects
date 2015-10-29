@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			Color Guessing Game
+		</title>
+		<script>
+
+			var unsortedColors = ["blue", "cyan", "gold", "gray", "magenta", "orange", "red", "white", "yellow", "salmon", "azure", "fuchsia", "indigo", "khaki", "maroon", "olive", "peru", "teal", "lime", "brown"];
+			var colors = unsortedColors.sort();
+			var colorAsString = colors.join(", ")
+			var finished = false;
+			var computerChoice;
+			var playerGuess;
+			var guesses = 0;
+
+			function run_game(){
+				random_result = Math.random() * colors.length;
+				random_result = Math.floor(random_result);
+				computerChoice = colors[random_result];
+				alert(computerChoice);
+
+				while(!finished){
+					playersGuess = prompt("I've choosen an ultra secret color. Can you guess which one?" + "\n" + "There are a total of " + colors.length + " colors" + "\n" + "Pick One: " + colorAsString);
+					guesses ++;
+					result = check_guess(playersGuess);
+
+					if (result){
+						myBody = document.getElementsByTagName("body")[0];
+						myBody.style.background = computerChoice;
+						finished = true;
+					}
+				}
+			}
+			function check_guess(guess){
+				if(guess === computerChoice){
+					alert("You guessed correctly, You Win!" + "\n" + "It took you " + "[" +guesses.toString() + "]" + " guesses");
+						return true;
+				}
+
+				if(colors.indexOf(guess) < 0){
+					alert("Sorry, I don't recognize that color..." + "\n" + "Try again!");
+					return false;
+				}
+
+				if(guess > computerChoice){
+					alert("Your guess is incorrect" + "\n" + "Hint: Your input is alphabetically higher than mine!" + "\n" + "Try a different color...");
+					return false;
+				}
+
+				if(guess < computerChoice){
+					alert("Your guess is incorrect" + "\n" + "Hint: Your input is alphabetically lower than mine!" + "\n" + "Try a different color...");
+					return false;
+				}
+			}
+
+		</script>
+	</head>
+	<body onload="run_game()">
+	</body>
+</html>
